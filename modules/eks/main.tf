@@ -20,7 +20,7 @@ module "eks" {
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    instance_types = ["m6i.large", "m5.large", "m5n.large", "m5zn.large"]
+    instance_types = ["t3.medium", "m7a.medium", "m7a.large"]
   }
 
   eks_managed_node_groups = {
@@ -33,6 +33,8 @@ module "eks" {
       min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
+
+      key_name = var.key_name
     }
   }
 
@@ -41,7 +43,7 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   tags = {
-    Environment = "prog"
+    Environment = "prod"
     Terraform   = "true"
   }
 }

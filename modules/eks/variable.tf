@@ -42,3 +42,8 @@ variable "desired_size" {
   type        = number
   description = "Desired number of instances in the cluster"
 }
+
+variable "key_name" {
+  type        = string
+  description = "Key name for worker nodes"
+}
