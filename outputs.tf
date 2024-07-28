@@ -17,3 +17,8 @@ output "cluster_oidc_issuer_url" {
   description = "The OIDC Issuer URL for the EKS cluster"
   value       = module.weasel_eks.cluster_oidc_issuer_url
 }
+
+output "bastion_host_ip" {
+  description = "The public IP address of the bastion host"
+  value       = module.bastion_host.public_ip
+}

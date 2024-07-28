@@ -21,3 +21,13 @@ module "weasel_eks" {
   desired_size             = 1
   key_name                 = "weasel-key-pair"
 }
+
+module "bastion_host" {
+  source = "./modules/ec2"
+  instance_name   = "bastion-host"
+  ami = "ami-0582e4fe9b72a5fe1"
+  instance_type = "t4g.small"
+  key_name = "weasel-key-pair"
+  security_group_ids = [data.terraform_remote_state.persistent.outputs.bastion_sg_id]
+  subnet_id = data.terraform_remote_state.persistent.outputs.public_subnet_ids[0]
+}
