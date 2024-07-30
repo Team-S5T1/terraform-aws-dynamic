@@ -8,6 +8,20 @@ data "terraform_remote_state" "persistent" {
   }
 }
 
+data "aws_eks_cluster" "cluster" {
+  name = module.weasel_eks.cluster_name
+}
+
+data "aws_eks_cluster_auth" "auth" {
+  name = module.weasel_eks.cluster_name
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.auth.token
+}
+
 module "weasel_eks" {
   source                   = "./modules/eks"
   cluster_name             = "weasel-eks"
@@ -25,6 +39,9 @@ module "weasel_eks" {
     cluster_name = "weasel-eks",
     max_pods     = 110
   }))
+  aws_auth_accounts = [ 
+    "393035689023"
+  ]
 }
 
 module "bastion_host" {

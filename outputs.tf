@@ -1,3 +1,11 @@
+output "cluster_id" {
+  value = module.weasel_eks.cluster_id
+}
+
+output "cluster_name" {
+  value = module.weasel_eks.cluster_name
+}
+
 output "cluster_endpoint" {
   description = "The endpoint for the EKS cluster"
   value       = module.weasel_eks.cluster_endpoint

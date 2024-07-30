@@ -59,3 +59,8 @@ variable "user_data" {
   type        = string
   default = ""
 }
+
+variable "aws_auth_accounts" {
+  description = "List of AWS accounts that should have access to the EKS cluster"
+  type        = list(string)
+}
