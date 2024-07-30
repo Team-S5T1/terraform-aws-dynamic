@@ -20,6 +20,11 @@ module "weasel_eks" {
   max_size                 = 3
   desired_size             = 1
   key_name                 = "weasel-key-pair"
+  # max_pods = 110
+  user_data = base64encode(templatefile("${path.module}/template/user_data.sh", {
+    cluster_name = "weasel-eks",
+    max_pods     = 110
+  }))
 }
 
 module "bastion_host" {
