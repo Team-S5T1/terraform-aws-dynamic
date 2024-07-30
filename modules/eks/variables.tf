@@ -60,6 +60,15 @@ variable "user_data" {
   default = ""
 }
 
+variable "aws_auth_users" {
+  description = "List of IAM users to map to Kubernetes roles"
+  type = list(object({
+    userarn  = string
+    username = string
+    groups   = list(string)
+  }))
+}
+
 variable "aws_auth_accounts" {
   description = "List of AWS accounts that should have access to the EKS cluster"
   type        = list(string)

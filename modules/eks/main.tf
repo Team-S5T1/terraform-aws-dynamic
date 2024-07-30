@@ -72,19 +72,8 @@ module "aws_auth" {
   #   },
   # ]
 
-  # aws_auth_users = [
-  #   {
-  #     userarn  = "arn:aws:iam::66666666666:user/user1"
-  #     username = "user1"
-  #     groups   = ["system:masters"]
-  #   },
-  #   {
-  #     userarn  = "arn:aws:iam::66666666666:user/user2"
-  #     username = "user2"
-  #     groups   = ["system:masters"]
-  #   },
-  # ]
-
+  aws_auth_users = var.aws_auth_users
+  
   aws_auth_accounts = var.aws_auth_accounts
 
   depends_on = [ module.eks ]

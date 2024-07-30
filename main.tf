@@ -35,6 +35,38 @@ module "weasel_eks" {
   desired_size             = 1
   key_name                 = "weasel-key-pair"
   # max_pods = 110
+  aws_auth_users = [
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ktj"
+    username = "weasel-infra-ktj"
+    groups   = ["system:masters"]
+  },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/asm"
+    username = "weasel-infra-asm"
+    groups   = ["system:masters"]
+  },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/csb"
+    username = "weasel-infra-csb"
+    groups   = ["system:masters"]
+  },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/jsc"
+    username = "weasel-infra-jsc"
+    groups   = ["system:masters"]
+  },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ksm"
+    username = "weasel-infra-ksm"
+    groups   = ["system:masters"]
+  },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ysm"
+    username = "weasel-infra-ysm"
+    groups   = ["system:masters"]
+  },
+]
   user_data = base64encode(templatefile("${path.module}/template/user_data.sh", {
     cluster_name = "weasel-eks",
     max_pods     = 110
