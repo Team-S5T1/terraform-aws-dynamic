@@ -38,6 +38,12 @@ variable "max_size" {
   description = "Maximum number of instances in the cluster"
 }
 
+# variable "max_pods" {
+#   type        = number
+#   description = "Maximum number of pods per node"
+#   default = null
+# }
+
 variable "desired_size" {
   type        = number
   description = "Desired number of instances in the cluster"
@@ -46,4 +52,10 @@ variable "desired_size" {
 variable "key_name" {
   type        = string
   description = "Key name for worker nodes"
+}
+
+variable "user_data" {
+  description = "The user data script for the EKS nodes"
+  type        = string
+  default = ""
 }

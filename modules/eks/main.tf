@@ -1,3 +1,14 @@
+# resource "aws_launch_template" "eks_node" {
+#   name_prefix   = "${var.cluster_name}-node"
+#   image_id      = data.aws_ami.eks_worker.id
+#   instance_type = "t3.medium"
+
+#   user_data = base64encode(templatefile("${path.module}/../../template/user_data.sh", {
+#     cluster_name = var.cluster_name,
+#     max_pods     = var.max_pods
+#   }))
+# }
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
@@ -29,12 +40,11 @@ module "eks" {
       ami_type = "AL2023_x86_64_STANDARD"
       # 해당 부분에 instance_types를 명시하지 않을 경우 위에 있는 instance_type 중 생성됨
       instance_types = var.instance_types
-
       min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
-
       key_name = var.key_name
+      user_data = var.user_data
     }
   }
 
