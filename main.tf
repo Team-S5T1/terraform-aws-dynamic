@@ -53,17 +53,17 @@ module "weasel_eks" {
   },
   {
     userarn  = "arn:aws:iam::393035689023:user/weasel/dev/jsc"
-    username = "weasel-infra-jsc"
+    username = "weasel-dev-jsc"
     groups   = ["system:masters"]
   },
   {
     userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ksm"
-    username = "weasel-infra-ksm"
+    username = "weasel-dev-ksm"
     groups   = ["system:masters"]
   },
   {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ysm"
-    username = "weasel-infra-ysm"
+    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ysm"
+    username = "weasel-dev-ysm"
     groups   = ["system:masters"]
   },
 ]
