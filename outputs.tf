@@ -30,3 +30,13 @@ output "bastion_host_ip" {
   description = "The public IP address of the bastion host"
   value       = module.bastion_host.public_ip
 }
+
+output "bastion_host_id" {
+  description = "The ID of the bastion host instance"
+  value       = module.bastion_host.instance_id
+}
+
+output "bastion_host_network_interface_id" {
+  description = "The ID of the bastion host network interface"
+  value       = module.bastion_host.network_interface_id
+}

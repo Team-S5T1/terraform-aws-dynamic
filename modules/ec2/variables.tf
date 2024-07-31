@@ -29,3 +29,15 @@ variable "instance_name" {
   type        = string
   default     = "example-instance"
 }
+
+variable "source_dest_check" {
+  description = "The source destination check for the instance."
+  type        = bool
+  default     = true
+}
+
+variable "user_data" {
+  description = "The user data for the instance."
+  type        = string
+  default     = ""
+}
