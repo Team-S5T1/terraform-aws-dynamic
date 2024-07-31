@@ -8,4 +8,7 @@ resource "aws_instance" "this" {
   tags = {
     Name = var.instance_name
   }
+
+  source_dest_check = var.source_dest_check
+  user_data = var.user_data
 }

@@ -66,6 +66,11 @@ module "weasel_eks" {
     username = "weasel-dev-ysm"
     groups   = ["system:masters"]
   },
+  {
+    userarn  = "arn:aws:iam::393035689023:user/KKamJi"
+    username = "weasel-kkamji"
+    groups   = ["system:masters"]
+  }
 ]
   user_data = base64encode(templatefile("${path.module}/template/user_data.sh", {
     cluster_name = "weasel-eks",
@@ -84,4 +89,9 @@ module "bastion_host" {
   key_name = "weasel-key-pair"
   security_group_ids = [data.terraform_remote_state.persistent.outputs.bastion_sg_id]
   subnet_id = data.terraform_remote_state.persistent.outputs.public_subnet_ids[0]
+  source_dest_check = false
+  user_data = base64encode(templatefile("${path.module}/template/bastion_host.sh", {
+    region = "us-east-1"
+    key_name = "weasel-key-pair"
+  }))
 }
