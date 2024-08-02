@@ -1,3 +1,9 @@
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.auth.token
+}
+
 data "terraform_remote_state" "persistent" {
   backend = "s3"
 
@@ -16,10 +22,9 @@ data "aws_eks_cluster_auth" "auth" {
   name = module.weasel_eks.cluster_name
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.auth.token
+resource "aws_iam_role_policy_attachment" "ebs_csi_policy_attachment" {
+  role       = module.weasel_eks.eks_node_group_iam_role_name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
 
 module "weasel_eks" {

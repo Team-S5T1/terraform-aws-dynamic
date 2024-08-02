@@ -45,3 +45,7 @@ output "node_group_names" {
   description = "The names of the EKS managed node groups"
   value       = keys(module.eks.eks_managed_node_groups)
 }
+
+output "eks_node_group_iam_role_name" {
+  value = module.eks.eks_managed_node_groups["weasel_nodes"].iam_role_name
+}

@@ -26,6 +26,11 @@ output "cluster_oidc_issuer_url" {
   value       = module.weasel_eks.cluster_oidc_issuer_url
 }
 
+output "eks_node_group_iam_role_name" {
+  description = "The IAM role name for the EKS managed node groups"
+  value       = module.weasel_eks.eks_node_group_iam_role_name
+}
+
 output "bastion_host_ip" {
   description = "The public IP address of the bastion host"
   value       = module.bastion_host.public_ip
