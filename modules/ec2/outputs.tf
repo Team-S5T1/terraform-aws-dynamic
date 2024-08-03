@@ -15,5 +15,5 @@ output "private_ip" {
 
 output "network_interface_id" {
   description = "The ID of the network interface."
-  value = aws_instance.this.primary_network_interface_id
+  value       = aws_instance.this.primary_network_interface_id
 }

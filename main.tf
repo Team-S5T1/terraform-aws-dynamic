@@ -39,64 +39,71 @@ module "weasel_eks" {
   max_size                 = 3
   desired_size             = 1
   key_name                 = "weasel-key-pair"
+
+  # #spot instance 
+  # spot_min_size            = 1
+  # spot_max_size            = 3
+  # spot_desired_size        = 1
+  # spot_instance_types      = ["t3.medium"]
+
   # max_pods = 110
   aws_auth_users = [
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ktj"
-    username = "weasel-infra-ktj"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/asm"
-    username = "weasel-infra-asm"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/infra/csb"
-    username = "weasel-infra-csb"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/jsc"
-    username = "weasel-dev-jsc"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ksm"
-    username = "weasel-dev-ksm"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ysm"
-    username = "weasel-dev-ysm"
-    groups   = ["system:masters"]
-  },
-  {
-    userarn  = "arn:aws:iam::393035689023:user/KKamJi"
-    username = "weasel-kkamji"
-    groups   = ["system:masters"]
-  }
-]
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ktj"
+      username = "weasel-infra-ktj"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/infra/asm"
+      username = "weasel-infra-asm"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/infra/csb"
+      username = "weasel-infra-csb"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/dev/jsc"
+      username = "weasel-dev-jsc"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ksm"
+      username = "weasel-dev-ksm"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/weasel/dev/ysm"
+      username = "weasel-dev-ysm"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::393035689023:user/KKamJi"
+      username = "weasel-kkamji"
+      groups   = ["system:masters"]
+    }
+  ]
   user_data = base64encode(templatefile("${path.module}/template/user_data.sh", {
     cluster_name = "weasel-eks",
     max_pods     = 110
   }))
-  aws_auth_accounts = [ 
+  aws_auth_accounts = [
     "393035689023"
   ]
 }
 
 module "bastion_host" {
-  source = "./modules/ec2"
-  instance_name   = "bastion-host"
-  ami = "ami-0582e4fe9b72a5fe1"
-  instance_type = "t4g.small"
-  key_name = "weasel-key-pair"
+  source             = "./modules/ec2"
+  instance_name      = "bastion-host"
+  ami                = "ami-0582e4fe9b72a5fe1"
+  instance_type      = "t4g.small"
+  key_name           = "weasel-key-pair"
   security_group_ids = [data.terraform_remote_state.persistent.outputs.bastion_sg_id]
-  subnet_id = data.terraform_remote_state.persistent.outputs.public_subnet_ids[0]
-  source_dest_check = false
+  subnet_id          = data.terraform_remote_state.persistent.outputs.public_subnet_ids[0]
+  source_dest_check  = false
   user_data = base64encode(templatefile("${path.module}/template/bastion_host.sh", {
-    region = "us-east-1"
+    region   = "us-east-1"
     key_name = "weasel-key-pair"
   }))
 }
