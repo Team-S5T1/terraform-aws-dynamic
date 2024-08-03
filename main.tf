@@ -100,3 +100,8 @@ module "bastion_host" {
     key_name = "weasel-key-pair"
   }))
 }
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = module.bastion_host.instance_id
+  allocation_id = data.terraform_remote_state.persistent.outputs.eip_id
+}
