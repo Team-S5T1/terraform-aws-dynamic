@@ -57,7 +57,7 @@ variable "key_name" {
 variable "user_data" {
   description = "The user data script for the EKS nodes"
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "aws_auth_users" {
@@ -73,3 +73,23 @@ variable "aws_auth_accounts" {
   description = "List of AWS accounts that should have access to the EKS cluster"
   type        = list(string)
 }
+
+
+# variable "spot_min_size" {
+#   type        = string
+#   description = "Minimum number of spot_instances in the cluster"
+# }
+
+# variable "spot_max_size" {
+#   type        = string
+#   description = "Maximum number of spot_instances in the cluster"
+# }
+# variable "spot_desired_size" {
+#   type        = string
+#   description = "Desired number of spot_instances in the cluster"
+# }
+
+# variable "spot_instance_types" {
+#   type        = list(string)
+#   description = "List of spot_instance types for the cluster"
+# }
