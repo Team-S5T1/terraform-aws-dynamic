@@ -41,12 +41,23 @@ module "eks" {
       ami_type = "AL2023_x86_64_STANDARD"
       # 해당 부분에 instance_types를 명시하지 않을 경우 위에 있는 instance_type 중 생성됨
       instance_types = var.instance_types
-      min_size     = var.min_size
-      max_size     = var.max_size
-      desired_size = var.desired_size
-      key_name = var.key_name
-      user_data = var.user_data
+      min_size       = var.min_size
+      max_size       = var.max_size
+      desired_size   = var.desired_size
+      key_name       = var.key_name
+      user_data      = var.user_data
     }
+    #spot instance 생성
+    # weasel_spot_nodes = {
+    #   ami_type       = "AL2023_x86_64_STANDARD"
+    #   instance_types = var.spot_instance_types 
+    #   min_size       = var.spot_min_size
+    #   max_size       = var.spot_max_size
+    #   desired_size   = var.spot_desired_size
+    #   key_name       = var.key_name
+    #   user_data      = var.user_data
+    #   capacity_type  = "SPOT" # 스팟 인스턴스 설정
+    # }
   }
 
   # Cluster access entry
@@ -74,8 +85,8 @@ module "aws_auth" {
   # ]
 
   aws_auth_users = var.aws_auth_users
-  
+
   aws_auth_accounts = var.aws_auth_accounts
 
-  depends_on = [ module.eks ]
+  depends_on = [module.eks]
 }
