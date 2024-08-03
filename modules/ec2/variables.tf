@@ -43,11 +43,11 @@ variable "user_data" {
 }
 
 variable "instance_profile_name" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "instance_profile_role_name" {
-  type = string
+  type    = string
   default = ""
 }
