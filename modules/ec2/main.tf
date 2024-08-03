@@ -11,4 +11,10 @@ resource "aws_instance" "this" {
 
   source_dest_check = var.source_dest_check
   user_data         = var.user_data
+  iam_instance_profile = aws_iam_instance_profile.this.name
+}
+
+resource "aws_iam_instance_profile" "this" {
+  name = var.instance_profile_name
+  role = var.instance_profile_role_name
 }

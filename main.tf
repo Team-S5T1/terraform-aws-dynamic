@@ -106,6 +106,8 @@ module "bastion_host" {
     region   = "us-east-1"
     key_name = "weasel-key-pair"
   }))
+  instance_profile_name = "weasel-instance-profile"
+  instance_profile_role_name = data.terraform_remote_state.persistent.outputs.bastion_role_name
 }
 
 resource "aws_eip_association" "eip_assoc" {
