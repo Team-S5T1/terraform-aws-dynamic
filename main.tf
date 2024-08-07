@@ -47,6 +47,13 @@ module "weasel_eks" {
   # spot_instance_types      = ["t3.medium"]
 
   # max_pods = 110
+  aws_auth_roles = [
+    {
+      rolearn  = "arn:aws:iam::393035689023:role/KarpenterNodeRole-weasel-eks"
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups   = ["system:nodes", "system:bootstrappers"]
+    }
+  ]
   aws_auth_users = [
     {
       userarn  = "arn:aws:iam::393035689023:user/weasel/infra/ktj"

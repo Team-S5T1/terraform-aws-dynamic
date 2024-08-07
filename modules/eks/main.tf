@@ -65,8 +65,9 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   tags = {
-    Environment = "prod"
-    Terraform   = "true"
+    Environment              = "prod"
+    Terraform                = "true"
+    "karpenter.sh/discovery" = "weasel-eks"
   }
 }
 
@@ -83,9 +84,8 @@ module "aws_auth" {
   #     groups   = ["system:masters"]
   #   },
   # ]
-
-  aws_auth_users = var.aws_auth_users
-
+  aws_auth_roles    = var.aws_auth_roles
+  aws_auth_users    = var.aws_auth_users
   aws_auth_accounts = var.aws_auth_accounts
 
   depends_on = [module.eks]
