@@ -117,7 +117,7 @@ module "bastion_host" {
   instance_profile_role_name = data.terraform_remote_state.persistent.outputs.bastion_role_name
 }
 
-resource "aws_eip_association" "eip_assoc" {
-  instance_id   = module.bastion_host.instance_id
-  allocation_id = data.terraform_remote_state.persistent.outputs.eip_id
-}
+# resource "aws_eip_association" "eip_assoc" {
+#   instance_id   = module.bastion_host.instance_id
+#   allocation_id = data.terraform_remote_state.persistent.outputs.eip_id
+# }
