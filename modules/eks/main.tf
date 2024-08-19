@@ -62,7 +62,7 @@ module "eks" {
 
   # Cluster access entry
   # 클러스터를 생성한 사용자를 관리자로 설정할지 여부
-  enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = false
 
   tags = {
     Environment              = "prod"
