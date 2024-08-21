@@ -121,3 +121,30 @@ module "bastion_host" {
 #   instance_id   = module.bastion_host.instance_id
 #   allocation_id = data.terraform_remote_state.persistent.outputs.eip_id
 # }
+
+
+
+#jenkins fleet 이미지 생성
+module "weasel_jenkins_agent" {
+  source          = "./modules/launchtemplate"
+  template_name   = "weasel-jenkins-fleet-template"
+  image_id        = "ami-0a0e5d9c7acc336f1" # Ubuntu 22.04 LTS
+  instance_type   = "t2.micro"
+  user_data       = base64encode(templatefile("${path.module}/template/jenkins_fleet.sh", {}))
+  market_type     = "spot"
+  security_groups = [data.terraform_remote_state.persistent.outputs.bastion_sg_id]
+  instance_name   = "Jenkins_EC2_Fleet"
+  # key_name        = "weasel-key-pair" 
+}
+
+module "jenkins_agents" {
+  launch_template_id = module.weasel_jenkins_agent.launch_template_id
+  source             = "./modules/asg"
+  desired_capacity   = 0
+  max_size           = 5
+  min_size           = 0
+  # vpc_zone_identifier = [data.terraform_remote_state.persistent.outputs.vpc_id]
+  instance_name = "Jenkins-Agent"
+  subnet_ids    = data.terraform_remote_state.persistent.outputs.public_subnet_ids
+  asg_name      = "Jenkins-autoscaling-group"
+}
